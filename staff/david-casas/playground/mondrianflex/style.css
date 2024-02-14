@@ -3,38 +3,55 @@
   width: 100vw;
   height: 100vh;
   background-color: black;
-  justify-content: space-around;
-  flex-direction: column;
-  flex-wrap: wrap;
+  flex-direction: row;
 }
-.container .first {
-  width: 28vw;
+.container .leftcolumn {
+  width: 30vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.container .leftcolumn .first {
+  width: 26vw;
   height: 42.5vh;
   background-color: yellow;
 }
-.container .second {
-  width: 28vw;
-  height: 21vh;
+.container .leftcolumn .second {
+  width: 26vw;
+  height: 28vh;
   background-color: white;
 }
-.container .third {
-  width: 28vw;
-  height: 21vh;
+.container .leftcolumn .third {
+  width: 26vw;
+  height: 14vh;
   background-color: blue;
 }
-.container .fourth {
-  width: 84vw;
-  height: 78vh;
+.container .rightcolumn {
+  width: 60vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.container .rightcolumn .fourth {
+  width: 59vw;
+  height: 73vh;
   background-color: red;
 }
-.container .fifth {
+.container .rightcolumn .bottom-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.container .rightcolumn .bottom-right .fifth {
   width: 50vw;
-  height: 21vh;
+  height: 14vh;
   background-color: white;
 }
-.container .sixth {
+.container .rightcolumn .bottom-right .sixth {
   width: 25px;
-  height: 21vh;
+  height: 14vh;
   background-color: white;
 }
 
