@@ -1,0 +1,33 @@
+.building {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.building__floors {
+  display: flex;
+  flex-direction: column;
+  background-image: url("images/brickwall.png");
+  padding: 10px;
+}
+.building__floor {
+  display: flex;
+  justify-content: space-around;
+  margin: 5px;
+  width: 100px;
+  height: 50px;
+}
+.building__window {
+  background-color: #8ed5f4;
+  margin: 5px;
+  width: 60px;
+  height: 40px;
+}
+.building__main-entrance {
+  background-color: black;
+  display: flex;
+  margin: auto;
+  width: 20px;
+  height: 40px;
+}
+
+/*# sourceMappingURL=styles.css.map */

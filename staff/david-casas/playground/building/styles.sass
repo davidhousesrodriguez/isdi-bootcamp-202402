@@ -1,0 +1,30 @@
+@mixin size($width,$height)
+    width: $width
+    height: $height
+
+.building
+    display: flex
+    flex-direction: column
+    align-items: center
+
+    &__floors
+        display: flex
+        flex-direction: column
+        background-image: url("images/brickwall.png")
+        padding: 10px
+
+    &__floor
+        display: flex
+        justify-content: space-around
+        margin: 5px
+        @include size(100px, 50px)
+
+    &__window
+        background-color: #8ed5f4
+        margin: 5px
+        @include size(60px, 40px)
+    &__main-entrance
+        background-color: black
+        display: flex
+        margin: auto
+        @include size(20px, 40px)
