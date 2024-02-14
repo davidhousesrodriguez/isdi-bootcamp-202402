@@ -1,0 +1,30 @@
+
+$ship-height: 10vh
+$ship-size-ratio: 1 //(h/w)
+
+body
+    margin: 0
+
+#space
+    background-color: black
+    width: 100vw
+    height: 100vh
+    display: flex
+    justify-content: space-around
+
+    .alienwholespace
+        display: flex
+        flex-wrap: wrap
+        height: 55vh
+        width: 82vw
+        background-color: red
+
+    #alien
+        height: $ship-height
+        margin: 5px
+
+    #ship
+        height: $ship-height
+        position: absolute
+        top: calc(100vh - $ship-height)
+        left: calc(50vw - 0.5 * $ship-height / $ship-size-ratio)
