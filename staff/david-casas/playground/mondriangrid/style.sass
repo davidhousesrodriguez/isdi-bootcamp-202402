@@ -8,20 +8,25 @@
     height: 300px
     background-color: white
     border: 5px solid black
-    grid-template-columns: 25% 55% 20%
+    grid-template-columns: 25% 75%
+    grid-template-rows: row
 
     .leftcolumn
+        display: grid
         border-right: 5px solid black
+        grid-template-rows: 50% 35% 15%
 
         .first
 
             background-color: yellow
             border-right: 5px solid black
+            border-bottom: 5px solid black
 
         .second
 
             background-color: white
             border-right: 5px solid black
+            border-bottom: 5px solid black
         .third
 
             background-color: blue
@@ -29,21 +34,24 @@
     .rightcolumn
 
         display: grid
+        grid-template-rows: 85%
 
         .fourth
 
             background-color: red
-            
+            border-right: 5px solid black
+            border-bottom: 5px solid black
+
         .bottom-right
             display: grid
-            grid-template-rows: row
+            grid-template-columns: 85% 15%
             border-right: 5px solid black
 
             .fifth
 
                 background-color: white
-                
+                border-right: 5px solid black
+
             .sixth
 
                 background-color: white
-                
