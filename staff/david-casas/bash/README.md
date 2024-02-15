@@ -44,7 +44,7 @@ $ touch hello.world
 ## mkdir(creates a directory / folder)
 
 ```sh
-$ mkdir
+$ mkdir bash
 
 ```
 ## cd (change directory)
@@ -56,7 +56,8 @@ $ cd workspace
 ## mv (move / rename file or folder)
 
 ```sh
-$ mv
+$mv file1 /folder1/file1
+    rename file1 to file2 
 ```
 
 ## clear or Ctrl + L (clean console) 
@@ -79,6 +80,8 @@ $ tree <path>
 $ rm -rf<path>
       
 ```
+
+
 
 
 
