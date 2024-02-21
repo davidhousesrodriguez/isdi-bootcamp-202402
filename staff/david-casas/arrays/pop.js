@@ -1,65 +1,67 @@
 //delete Array.prototype.pop
 
 function pop(array) {
-  var popValue = " ";
+  var popValue = " "
   if (array.length >= 0) {
-    popValue = array[array.length - 1];
-    array.length--;
-    return popValue;
+    popValue = array[array.length - 1]
+    array.length--
+    return popValue
   } else {
-    return undefined;
+    return undefined
   }
 }
 
 // CASE 1
+console.log('CASE 1')
 
-var nums = [100, 200, 300, 400, 500];
+var nums = [100, 200, 300, 400, 500]
 
-var num = pop(nums);
+var num = pop(nums)
 
-console.log(num);
-//500
 
-console.log(nums.length);
-//4
+console.assert(num === 500, '500')
 
-console.log(nums);
-// [100, 200, 300, 400]
+console.assert(nums.length === 4, '4')
+console.assert(nums[0] === nums [0], '100')
+console.assert(nums[1] === nums [1], '200')
+console.assert(nums[2] === nums [2], '300')
+console.assert(nums[3] === nums [3], '400')
 
-//CASE 2
+console.log('CASE 2')
 
-var animals = ["pigs", "goats", "sheep", "cows"];
-var animal = pop(animals);
+var animals = ["pigs", "goats", "sheep", "cows"]
+var animal = pop(animals)
 
-console.log(animal);
-//"cows"
-console.log(animals.length);
-// 3
-console.log(animals);
-// ["pigs", "goats", "sheep"]
 
-// CASE 3
+console.assert(animal === 'cows', 'cows')
 
-var sports = ["soccer", "baseball"];
+console.assert(animals.length === 3, '3')
 
-var sport = pop(sports);
+console.assert(nums[0] === nums [0], 'pigs')
+console.assert(nums[1] === nums [1], 'goats')
+console.assert(nums[2] === nums [2], 'sheep')
 
-console.log(sport);
-//"baseball"
-console.log(sports.length);
-//1
-console.log(sports);
-//["soccer"]
+console.log('CASE 3')
 
-// CASE 4
+var sports = ["soccer", "baseball"]
 
-var sport = [];
+var sport = pop(sports)
 
-var sport = pop(sports);
+console.assert(sport === 'baseball', 'baseball')
+console.assert(sports.length === 1,'1')
+console.assert(sports[0] === sports[0])
 
-console.log(sport);
-//undefined
-console.log(sports.length);
-//0
-console.log(sports);
-// []
+console.log('CASE 4')
+
+var sport = []
+
+var sport = pop(sports)
+
+console.assert(sport === 'soccer', 'soccer')
+
+console.assert(sports.length == 0, '0')
+
+console.assert(sports[0] === sports [0], '0')
+
+
+

@@ -1,31 +1,40 @@
-function join (array, separator) {
-    var element = ""
+delete Array.prototype.join;
 
-    if (array.length === 0 || separator.length === 0) {
-        return result
-    }
+function join(array, separator) {
+  //TODO implement me
+  var result = "";
+  if (separator === undefined) {
+    separator = ",";
+  }
 
-    for (var i = 0; i < array.length - 1; i++) {
-        result += array[i] + separator
-    }
-
-    for (var i = array.length - 1; i < array.length - 2; i--) {
-        result += array[i]
-    }
-    return result
+  if (array.length === 0) {
+    return result;
+  }
+  for (var i = 0; i < array.length - 1; i++) {
+    result += array[i] + separator;
+  }
+  result += array[array.length - 1];
+  return result;
 }
 
-// CASE 1
-console.log("CASE 1")
-var animals = ["Dog", "Cat", "Snake"]
-// "Dog,Cat,Snake"
+console.log('CASE 1')
+var elements = ["Fire", "Air", "Water"];
+var result = join(elements);
+console.assert(result === "Fire,Air,Water", "Fire,Air,Water");
 
-// CASE 2
-console.log ("CASE 2")
-var waves = ["Hola", "Hello", "Ciao"]
-// "Hola-Hello-Ciao"
+console.log('CASE 2')
+var result = join(elements, "");
+console.assert(result === "FireAirWater", "FireAirWater" );
 
-//CASE 3
-console.log("CASE 3")
-var sports = ["Basket", "Soccer", "Baseball"]
-// "Basket/Soccer/Baseball"
+console.log('CASE 3')
+var result = join(elements, " ");
+console.assert(result === "Fire Air Water", "Fire Air Water");
+
+console.log('CASE 4')
+var result = join(elements, "-");
+console.assert(result === "Fire-Air-Water", "Fire-Air-Water");
+
+console.log('CASE 5')
+var result = join(elements, "+");
+console.assert(result === "Fire+Air+Water", "Fire+Air+Water");
+

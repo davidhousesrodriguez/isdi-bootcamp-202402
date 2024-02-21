@@ -18,13 +18,13 @@ function shift(array) {
 console.log('CASE 1')
 var nums = [1, 2, 3];
 var result = shift(nums, function(x) {return x - x[0]});
-console.log(result);
 
-//[2, 3]
+console.assert(nums[2] === result[2], '0')
 
 console.log('CASE 2')
 var furniture = ["table", 'chair', 'couch', 'chimney']
 var result = shift(furniture,function(x) {return x -x[0]})
-console.log(result)
 
-// ['chair', 'couch', 'chimney']
+console.assert(furniture[2] !== result[0], 'chimney')
+
+
