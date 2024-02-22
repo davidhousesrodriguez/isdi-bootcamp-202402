@@ -13,15 +13,16 @@ function extract(object, callback) {
     var extractedItem = {}
         for (var i = 0; i < object.length; i++) {
             if (callback(object[i]) === true) {
-                extractedItem = object[i]
-                object.length --
-                delete object[i]
+
+                var extractedItem = object[i]
+
+                for (var j = i; j < object.length; j++)
+                    object[j] = object [j + 1] 
+                    object.length --
+                    delete object[object.length]
         }
-       
-        
     }
     return extractedItem  
-    
 }
 
  
