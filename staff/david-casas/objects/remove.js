@@ -1,5 +1,5 @@
 /**
- * Removes an element in iterable object at specfified index.
+ * Removes an element in iterable object at specified index.
  *
  * @param object - The iterable object to mutate. 
  * @param index - The index from which to remove a value.
@@ -7,7 +7,7 @@
  * @throws {TypeError} When object is not an object, or when index is not a number.
  */
 function remove(object, index) {
-    var removed = ''
+    var removed = ''// supossed to return the index
     var rest = {}
     for (var i = 0; i < object.length; i++) {
 
@@ -16,11 +16,7 @@ function remove(object, index) {
         return removed
     }
     return rest
-
-
     }
-
-
     console.log('CASE 1: remove blue from index 1')
 
     var colors = {
