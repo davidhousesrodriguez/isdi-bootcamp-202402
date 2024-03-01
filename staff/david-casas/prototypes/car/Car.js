@@ -9,7 +9,6 @@ function Car(brand, model, year, color, doors, fuelType, transmission, gears) {
     this.fuelType = fuelType;
     this.transmission = transmission;
     this.gears = gears;
-  
     this.gear = 0;
     this.speed = 0;
     this.acceleration = 0;

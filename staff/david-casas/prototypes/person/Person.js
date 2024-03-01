@@ -1,38 +1,42 @@
-function Person (name, lastName,yearOfBirth, SkinColor, hairColor, height, weight) {
+function Person(name, surname, birthdate, country, height, weight) {
     this.name = name
-    this.lastName = lastName
-    this.age = age
-    this.SkinColor = SkinColor
-    this.hairColor = hairColor
-    this.eyesColor = eyesColor
+    this.surname = surname
+    this.birthdate = birthdate
+    this.country = country
     this.height = height
     this.weight = weight
+    this.sleeping = false
+    this.eating = ''
+    this.legsSpeed = Person.NOT_WALK
 }
 
-Person.prototype.name = function() {
-this.name = 'Nino'
+Person.NOT_WALK = 0
+Person.WALK_VERY_SLOW = 1
+Person.WALK_SLOW = 2
+Person.WALK_NORMAL = 4
+Person.WALK_FAST = 5
+Person.RUN = 6
+
+Person.prototype.sleep = function () {
+    this.sleeping = true
 }
 
-Person.prototype.lastName = function() {
-    this.lastName = 'Bravo'
+Person.prototype.awake = function () {
+    this.sleeping = false
 }
 
-Person.prototype.age = function() {
-    this.age  = 1977
+Person.prototype.eat = function (food) {
+    if (this.sleeping) throw new Error('try to eat on sleeping')
+
+    this.eating = food
 }
 
-Person.prototype.color = function() {
-    this.hairColor = hairColor
-}
-Person.prototype.hairColor = function() {
-    this.hairColor = this.hairColor
-}
-Person.prototype.height = function() {
-    this.height = height
-}
-Person.prototype.weigth = function() {
-    this.weigth = this.weight
+Person.prototype.moveLegs = function (speed) {
+    this.legsSpeed = speed === undefined ? 4 : speed
 }
 
+Person.prototype.talk = function () {
+    this.talking = true
+}
 
 module.exports = Person
