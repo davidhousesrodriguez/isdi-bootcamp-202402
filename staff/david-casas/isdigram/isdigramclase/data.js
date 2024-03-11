@@ -93,16 +93,22 @@ var data = (function () {
         return post
     }
 
-    function toChangePost (callback) {
+    function toChangePost(callback) {
         var posts = loadPosts()
 
         var index = posts.findIndex(callback)
+               
+        var postId =posts[index]
+        var text = prompt('update text')
+        
+        posts[index].text = document.addEventListener('click', updateText)
+            function updateText() {
+                
+                return  postId.text              
+            }
+            savePosts(posts)   
 
-        posts[index] = 'pepe' 
-
-        savePosts(posts)
     }
-
     function deletePost(callback) {
         var posts = loadPosts()
 
@@ -122,8 +128,7 @@ var data = (function () {
         insertPost: insertPost,
         getAllPosts: getAllPosts,
         findPost: findPost,
-        editPost: editPost,
-        toCHangePost:toChangePost,
+        toChangePost: toChangePost,
         deletePost: deletePost
     }
 })()

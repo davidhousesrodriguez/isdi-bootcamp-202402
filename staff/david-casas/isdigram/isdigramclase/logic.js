@@ -169,17 +169,14 @@ var logic = (function () {
     }
 
     function editPost(postId) {
-        
-        var post = data.findPost(function(post) {
+        var post = data.findPost(function (post) {
             return post.id === postId
         })
         data.toChangePost(function (post) {
             return post.id === postId
         })
-               
-    }
         
-    
+    }
 
     function removePost(postId) {
         validateText(postId, 'postId', true)

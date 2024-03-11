@@ -2,7 +2,7 @@
 
 (function () {
     if (!logic.isUserLoggedIn()) {
-        location.href = '../login'
+        location.href = '../login/index.html'
 
         return
     }
@@ -18,6 +18,7 @@
     var chatSection = document.querySelector('#chat-section')
     var footer = document.querySelector('#footer')
     var homeButton = document.querySelector('#home-button')
+    
 
     try {
         var user = logic.retrieveUser()
@@ -93,8 +94,8 @@
                 if (post.author.id === logic.getLoggedInUserId()) {
                     var editPostButton = document.createElement('button')
                     var deleteButton = document.createElement('button')
-                    
-                    editPostButton.innerText = '✍️'
+
+                    editPostButton.innerText = '✍️'    
                     deleteButton.innerText = '🗑️'
 
                     deleteButton.onclick = function () {
@@ -109,23 +110,21 @@
                                 alert(error.message)
                             }
                     }
-                    editPostButton.onclick = function (){
-                        if(confirm('Are you sure you want to delete the post?'))
+                    editPostButton.onclick = function () {
+                        if (confirm('Are you sure you want to edit this post?'))
                         try {
                             logic.editPost(post.id)
 
-                            renderPosts
+                            renderPosts()
                         }catch (error) {
                             console.error(error)
 
                             alert(error.message)
                         }
-
                     }
-
-                    
                     article.appendChild(editPostButton)
                     article.appendChild(deleteButton)
+                    
                 }
 
                 postListSection.appendChild(article)
@@ -150,7 +149,6 @@
         var userList = chatSection.querySelector('#user-list')
 
         userList.innerHTML = ''
-        
 
         try {
             var users = logic.retrieveUsers()
@@ -164,8 +162,6 @@
                     item.classList.add('user-list__item--offline')
 
                 item.innerText = user.username
-                
-               
 
                 userList.appendChild(item)
             })

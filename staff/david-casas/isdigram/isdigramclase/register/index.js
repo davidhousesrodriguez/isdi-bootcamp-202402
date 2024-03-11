@@ -34,7 +34,7 @@
 
             form.reset()
 
-            location.href = '../login/index.html'
+            location.href = 'login.html'
         } catch (error) {
             alert(error.message)
         }
