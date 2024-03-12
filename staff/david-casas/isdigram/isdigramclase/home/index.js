@@ -2,7 +2,7 @@
 
 (function () {
     if (!logic.isUserLoggedIn()) {
-        location.href = '../login/index.html'
+        location.href = '../login'
 
         return
     }
@@ -18,7 +18,6 @@
     var chatSection = document.querySelector('#chat-section')
     var footer = document.querySelector('#footer')
     var homeButton = document.querySelector('#home-button')
-    
 
     try {
         var user = logic.retrieveUser()
@@ -92,15 +91,15 @@
                 article.append(authorHeading, image, paragraph, dateTime)
 
                 if (post.author.id === logic.getLoggedInUserId()) {
-                    var editPostButton = document.createElement('button')
                     var deleteButton = document.createElement('button')
 
-                    editPostButton.innerText = '✍️'    
+                    
                     deleteButton.innerText = '🗑️'
 
                     deleteButton.onclick = function () {
                         if (confirm('delete post?'))
                             try {
+                                
                                 logic.removePost(post.id)
 
                                 renderPosts()
@@ -110,21 +109,36 @@
                                 alert(error.message)
                             }
                     }
-                    editPostButton.onclick = function () {
-                        if (confirm('Are you sure you want to edit this post?'))
-                        try {
-                            logic.editPost(post.id)
+                    /*    
+                    var editButton = document.createElement('button')
+                    editButton.innerText = '✍️'
 
-                            renderPosts()
-                        }catch (error) {
-                            console.error(error)
-
-                            alert(error.message)
-                        }
+                    editButton.onclick = function() {
+                        editPostSection.style.display = 'block'
                     }
-                    article.appendChild(editPostButton)
-                    article.appendChild(deleteButton)
-                    
+                    editPostForm.addEventListener("submit", function (event) {
+                        event.preventDefault();
+            
+                        var textInput = editPostForm.querySelector("#edit-text");
+                        var text = textInput.value;
+            
+                        try {
+                          logic.modifyPost(post.id, text);
+            
+                          editPostForm.reset();
+            
+                          editPostSection.style.display = "none";
+            
+                          renderPosts();
+                        } catch (error) {
+                          console.error(error);
+                          console.log(error.message);
+                        }
+                      });
+            
+                      article.append(editButton, deleteButton);
+                    */
+                   article.appendChild(deleteButton)
                 }
 
                 postListSection.appendChild(article)
@@ -151,7 +165,7 @@
         userList.innerHTML = ''
 
         try {
-            var users = logic.retrieveUsers()
+            var users = logic.retrieveUsersWithStatus()
 
             users.forEach(function (user) {
                 var item = document.createElement('li')
