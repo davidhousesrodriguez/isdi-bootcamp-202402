@@ -1,138 +1,120 @@
+import utils from '../../utils.mjs'
+
 import logic from '../../logic.mjs'
+
 import Component from '../../core/Component.mjs'
-import Image from '../../core/Image.mjs'
 import Form from '../../core/Form.mjs'
+import Label from '../../core/Label.mjs'
+import Input from '../../core/Input.mjs'
+import Button from '../../core/Button.mjs'
 
 class Chat extends Component {
     constructor() {
         super('section')
-        /*
-        const helloChat = new Component('h1')
-        helloChat.setText('Hello, Chat!')
-        this.add(helloChat)
-        */
 
-        this.addClass("chat-section");
+        const userList = new Component ('ul')
 
-        const userList = new Component("div");
-        userList.addClass("user-list");
-    
-        const chatPanel = new Component("div");
-        chatPanel.addClass("chat-panel");
-    
-        const chatPanelUsername = new Component("h3");
-        chatPanelUsername.addClass("chat-panel__username");
-    
-        const messageList = new Component("ul");
-        messageList.addClass("message-list");
-    
-        this._userList = userList;
-        this._chatPanel = chatPanel;
-        this._chatPanelUsername = chatPanelUsername;
-        this._messageList = messageList;
-    
-        chatPanel.add(chatPanelUsername, messageList);
-        this.add(userList, chatPanel);
-    
         try {
-          const users = logic.retrieveUsersWithStatus();
-    
-          users.forEach(function (user) {
-            const item = new Component("li");
-    
-            item.addClass("user-list__item");
-    
-            if (user.status === "online") item.addClass("user-list__item--online");
-            else if (user.status === "offline")
-              item.addClass("user-list__item--offline");
-    
-            const avatarImg = new Image();
-            avatarImg.setSource(user.avatar);
-            avatarImg.setAlt(user.username);
-    
-            const avatarText = new Component("p");
-            avatarText.setText(user.username);
-    
-            item.add(avatarImg, avatarText);
-    
-            userList.add(item);
-    
-            item.onClick = function () {
-              const usernameTitle = new Component("h3");
-              usernameTitle.addClass("chat-panel__username");
-              usernameTitle.setText(user.username);
-    
+          const users = logic.retrieveUsersWithStatus()
+
+          let chat = null
+
+          users.forEach(user => {
+            const userItem = new Component('li')
+
+            userItem.setText(user.username)
+
+            userItem.addClass('user-list__item')
+
+            if(user.status === 'online')
+              userItem.addClass('user-list__item--online')
+            else
+              userItem.addClass
+              ('user-list__item--offline')
+
+            userItem.onClick(() => {
+              if(chat) this.remove(chat)
+
+              chat = new Component
+
+              const usernameTitle = new Component('h3')
+              usernameTitle.setText(user.username)
+
+              const messageList = new Component
+
+              messageList.addClass('message-list')
+
               function renderMessages() {
+                messageList.removeAll()
+                
                 try {
-                  const messageList = chatPanel.querySelector(".message-list");
-                  const isScrolledToBottom =
-                    messageList.scrollHeight - messageList.clientHeight <=
-                    messageList.scrollTop + 1;
-    
-                  const messages = logic.retrieveMessagesWithUser(user.id);
-    
-                  messageList.innerHTML = "";
-    
-                  messages.forEach(function (message) {
-                    const messageParagraph = new Component("p");
-    
-                    messageParagraph.setText(message.text);
-    
-                    if (message.from === logic.getLoggedInUserId())
-                      messageParagraph.addClass("message-list__item--right");
-                    else messageParagraph.addClass("message-list__item--left");
-    
-                    messageList.add(messageParagraph);
-                  });
-    
-                  if (isScrolledToBottom) {
-                    // Scroll hasta el final del elemento messageList
-                    messageList.scrollTop = messageList.scrollHeight;
-                  }
+                  const messages = logic.retrieveMessagesWithUser(user.id)
+
+                  messages.forEach(message => {
+                    const messageItem = new Component('p')
+                    messageItem.setText(message.text)
+
+                    if( message.from === logic.getLoggedInUserId())
+                      messageItem.addClass('message-list__item--right')
+                    else
+                      messageItem.addClass('message-list__item--left')
+
+                    messageList.add(messageItem)
+                  })
                 } catch (error) {
-                  console.error(error);
-                  alert(error.message);
+                  utils.showFeedback(error)
                 }
-              }
-    
-              renderMessages();
-    
-              clearInterval(renderMessagesIntervalId);
-    
-              renderMessagesIntervalId = setInterval(renderMessages, 1000);
-              const form = new Form();
-    
-              form.onsubmit = function (event) {
-                event.preventDefault();
-    
-                const textInput = new Input();
-                textInput.setId("text");
-                textInput.setType("text");
-                textInput.setPlaceholder("Text");
-    
-                textForm.querySelector("#text");
-                const text = textInput.value;
-    
+              } 
+
+              renderMessages.call(this)
+
+              chat.add(usernameTitle, messageList)
+
+              this.add(chat)
+
+              const sendMessageForm = new Form
+
+              sendMessageForm.onSubmit(event => {
+                event.preventDefault()
+
+                const text = textInput.getValue()
+
                 try {
-                  logic.sendMessageToUser(user.id, text);
-    
-                  textForm.reset();
-    
-                  renderMessages();
+                  logic.sendMessageToUser(user.id, text)
+
+                  sendMessageForm.reset()
+
+                  renderMessages.call(this)
                 } catch (error) {
-                  console.error(error);
-                  alert(error.message);
+                  
+                utils.showFeedback(error)
                 }
-              };
-    
-              chatPanel.style.display = "block";
-            };
-          });
+              })
+
+              const textLabel = new Label
+              textLabel.setText('Text')
+              textLabel.setFor('text')
+
+              const textInput = new Input
+              textInput.setId('text')
+
+              const sendButton = new Button
+              sendButton.setType('submit')
+              sendButton.setText('Send')
+
+              sendMessageForm.add(textLabel, textInput, sendButton)
+
+              chat.add(sendMessageForm)
+            })
+
+            userList.add(userItem)
+          })
         } catch (error) {
-          console.error(error);
-          alert(error.message);
+          utils.showFeedback(error)
         }
-      }
+
+        this.add(userList)
+
     }
-    
+  }
     export default Chat;

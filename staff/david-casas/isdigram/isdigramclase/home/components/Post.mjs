@@ -4,6 +4,7 @@ import logic from '../../logic.mjs'
 
 import Image from '../../core/Image.mjs'
 import Component from '../../core/Component.mjs'
+import EditPost from './EditPost.mjs'
 
 class Post extends Component {
     constructor(post) {
@@ -32,7 +33,7 @@ class Post extends Component {
                     try {
                         logic.removePost(post.id)
 
-                        // TODO renderPosts() ?
+                        this._onDeletedCallback()
                     } catch (error) {
                         utils.showFeedback(error)
                     }
@@ -42,11 +43,34 @@ class Post extends Component {
             editButton.setText('📝')
 
             editButton.onClick(() => {
-                // TODO open edit panel
+               if(!EditPost.active) {
+                const editPost = new EditPost(post)
+
+                editPost.onCancelClick(() => this.remove(editPost))
+
+                editPost.onPostEdited(() => this._onEditedCallback())
+
+                this.add(editPost)
+               }
             })
 
             this.add(deleteButton, editButton)
         }
+
+        this._onDeletedCallback = null
+        this._onEditedCallback = null
+    }
+
+    onDeleted(callback) {
+        if(typeof callback !== 'function') throw new TypeError('callback is not a fucntion')
+
+        this._onDeletedCallback = callback
+    }
+
+    onEdited(callback) {
+        if(typeof callback !== 'function') throw new TypeError('callback is not a function')
+
+        this._onEditedCallback = callback
     }
 }
 
