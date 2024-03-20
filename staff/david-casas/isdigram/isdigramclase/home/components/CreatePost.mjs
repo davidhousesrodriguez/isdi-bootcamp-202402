@@ -5,8 +5,11 @@ import logic from '../../logic.mjs'
 import Component from '../../core/Component.mjs'
 import Label from '../../core/Label.mjs'
 import Input from '../../core/Input.mjs'
-import Button from '../../core/Button.mjs'
 import Form from '../../core/Form.mjs'
+
+import SubmitButton from '../../library/SubmitButton.mjs'
+
+import CancelButton from '../../library/CancelButton.mjs'
 
 class CreatePost extends Component {
     constructor() {
@@ -35,13 +38,12 @@ class CreatePost extends Component {
         textInput.setId('text')
         textInput.setType('text')
 
-        const createButton = new Button
-        createButton.setType('submit')
+        const createButton = new SubmitButton
         createButton.setText('Create')
 
         form.add(imageLabel, imageInput, textLabel, textInput, createButton)
 
-        const cancelButton = new Button
+        const cancelButton = new CancelButton
         cancelButton.setText('Cancel')
 
         this._cancelButton = cancelButton
@@ -64,18 +66,31 @@ class CreatePost extends Component {
         })
 
         this._onPostCreatedCallback = null
+
+        CreatePost.active = true
     }
+
+    static active = false
 
     onCancelClick(callback) {
         if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
-        this._cancelButton.onClick(callback)
-    }
+    
+    this._cancelButton.onClick(() => {
+        CreatePost.active = false
+
+        callback()
+    })
+}
 
     onPostCreated(callback) {
         if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
-        this._onPostCreatedCallback = callback
+        this._onPostCreatedCallback = () => {
+            CreatePost.active = false
+
+            callback()
+        }
     }
 }
 

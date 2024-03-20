@@ -6,7 +6,8 @@ import Component from '../../core/Component.mjs'
 import Form from '../../core/Form.mjs'
 import Label from '../../core/Label.mjs'
 import Input from '../../core/Input.mjs'
-import Button from '../../core/Button.mjs'
+
+import Button from '../../library/SubmitButton.mjs'
 
 class Chat extends Component {
     constructor() {

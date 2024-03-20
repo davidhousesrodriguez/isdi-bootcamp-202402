@@ -28,7 +28,7 @@ class Post extends Component {
             const deleteButton = new Component('button')
             deleteButton.setText('🗑️')
 
-            deleteButton.onClick(function () {
+            deleteButton.onClick(() => {
                 if (confirm('delete post?'))
                     try {
                         logic.removePost(post.id)
@@ -43,15 +43,15 @@ class Post extends Component {
             editButton.setText('📝')
 
             editButton.onClick(() => {
-               if(!EditPost.active) {
-                const editPost = new EditPost(post)
+                if (!EditPost.active) {
+                    const editPost = new EditPost(post)
 
-                editPost.onCancelClick(() => this.remove(editPost))
+                    editPost.onCancelClick(() => this.remove(editPost))
 
-                editPost.onPostEdited(() => this._onEditedCallback())
+                    editPost.onPostEdited(() => this._onEditedCallback())
 
-                this.add(editPost)
-               }
+                    this.add(editPost)
+                }
             })
 
             this.add(deleteButton, editButton)
@@ -62,13 +62,13 @@ class Post extends Component {
     }
 
     onDeleted(callback) {
-        if(typeof callback !== 'function') throw new TypeError('callback is not a fucntion')
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
         this._onDeletedCallback = callback
     }
 
     onEdited(callback) {
-        if(typeof callback !== 'function') throw new TypeError('callback is not a function')
+        if (typeof callback !== 'function') throw new TypeError('callback is not a function')
 
         this._onEditedCallback = callback
     }
