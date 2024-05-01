@@ -1,1 +1,22 @@
 .DS Store
+isdigram/api/node_modules
+isdigram/app/node_modules
+isdigram/com/node_modules
+
+isdigram/zzz/api.2/node_modules
+isdigram/zzz/api.3/node_modules
+isdigram/zzz/app.1/node_modules
+
+project/api/node_modules
+project/app/node_modules
+project/com/node_modules
+
+project/zzz/project.1/api.1/node_modules
+project/zzz/project.1/app.1/node_modules
+
+project/zzz/project.2/api.2/node_modules
+project/zzz/project.2/app.2/node_modules
+
+project/zzz/project.3/api.3/node_modules
+project/zzz/project.3/app.3/node_modules
+

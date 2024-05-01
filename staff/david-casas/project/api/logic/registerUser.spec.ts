@@ -17,22 +17,26 @@ describe('registerUser', () => {
 
     it('succeeds a new user', () =>
         User.deleteMany()
-            .then(() => logic.registerUser('Pepe Roni', 'pepe@roni.com', 'peperoni', '123qwe123'))
-            .then(() => User.findOne({ username: 'peperoni' }))
+            .then(() => logic.registerUser('Pepe Roni', 'peperoni', 'pepe@roni.com', '123qwe123', '677371770'))
+            .then(() => User.findOne({ email: 'pepe@roni.com' }))
             .then(user => {
                 expect(!!user).to.be.true
+
                 expect(user.name).to.equal('Pepe Roni')
+                expect(user.surname).to.equal('peperoni')
                 expect(user.email).to.equal('pepe@roni.com')
-                expect(user.username).to.equal('peperoni')
                 expect(user.password).to.equal('123qwe123')
+                expect(user.telephone).to.equal('677371770')
+                
+                
             })
     )
 
     it('fails on existing users', () =>
         User.deleteMany()
-            .then(() => User.create({ name: 'Pepe Roni', email: 'pepe@roni.com', username: 'peperoni', password: '123qwe123' }))
+            .then(() => User.create({ name: 'Pepe Roni', surname: 'Casas', email: 'pepe@roni.com', telephone:'677371770', password: '123qwe123' }))
             .then(() =>
-                logic.registerUser('Pepe Roni', 'pepe@roni.com', 'peperoni', '123qwe123')
+                logic.registerUser('Pepe Roni', 'peperoni', 'pepe@roni.com', '123qwe123', '677371770')
                     .catch(error => {
                         expect(error).to.be.instanceOf(DuplicityError)
                         expect(error.message).to.equal('user already exists')
@@ -58,7 +62,7 @@ describe('registerUser', () => {
         let errorThrown
 
         try {
-            logic.registerUser('', 'pepe@roni.com', 'peperoni', '123qwe123')
+            logic.registerUser('', 'peperoni', 'pepe@roni.com', '123qwe123', '677371770')
         } catch (error) {
             errorThrown = error
         }

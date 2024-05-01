@@ -16,9 +16,9 @@ describe('authenticateUser', () => {
 
     it('succeeds on existing user and correct credentials', () =>
         User.deleteMany()
-            .then(() => User.create({ name: 'Pepe Roni', birthdate: '2000-01-01', email: 'pepe@roni.com', username: 'peperoni', password: '123qwe123' }))
+            .then(() => User.create({ name: 'David', surname: 'Casas Rodriguez', email: 'davidhouses@hotmail.com', password: '71421576K', telephone: '677371770' }))
             .then(user =>
-                logic.authenticateUser('peperoni', '123qwe123')
+                logic.authenticateUser('davidhouses@hotmail.com', '71421576K')
                     .then(userId => {
                         expect(userId).to.be.a('string')
                         expect(userId).to.equal(user.id)
@@ -28,8 +28,8 @@ describe('authenticateUser', () => {
 
     it('fails on existing user and incorrect password', () =>
         User.deleteMany()
-            .then(() => User.create({ name: 'Pepe Roni', birthdate: '2000-01-01', email: 'pepe@roni.com', username: 'peperoni', password: '123qwe123' }))
-            .then(() => logic.authenticateUser('peperoni', '123qwe123qwe'))
+            .then(() => User.create({ name: 'David', surname: 'Casas Rodriguez', email: 'davidhouses@hotmail.com', password: '71421576', telephone: '677371770' }))
+            .then(() => logic.authenticateUser('davidhouses@hotmail.com', '71421576'))
             .catch(error => {
                 expect(error).to.be.instanceOf(CredentialsError)
                 expect(error.message).to.equal('wrong password')
@@ -38,11 +38,11 @@ describe('authenticateUser', () => {
 
     it('fails on existing user and incorrect username', () =>
         User.deleteMany()
-            .then(() => User.create({ name: 'Pepe Roni', birthdate: '2000-01-01', email: 'pepe@roni.com', username: 'peperoni', password: '123qwe123' }))
-            .then(() => logic.authenticateUser('peperoni2', '123qwe123'))
+            .then(() => User.create({ name: 'David', surname: 'Flores', email: 'davidhouses@hotmail.com', password: '71421576K', telephone: '677371770' }))
+            .then(() => logic.authenticateUser('davidhouseshotmail.com', '71421576K'))
             .catch(error => {
                 expect(error).to.be.instanceOf(NotFoundError)
-                expect(error.message).to.equal('user not found')
+                expect(error.message).to.equal('password is not acceptable')
             })
     )
 

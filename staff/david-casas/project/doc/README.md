@@ -53,7 +53,7 @@ v0.1
 User
 - id (required)
 - name (string, required)
-- Surname (string, required)
+- surname (string, required)
 - email (string, required)
 - password (string, required)
 - telephone(string, optional)
@@ -68,9 +68,10 @@ Tool
 - image (string, required)
 - category (Category.id, required)
 - description (string, required)
-- address (string, required) mongoose geo
+- address (string, required) 
 - location ([number], required)
 - available(boolean, required)
+- date (Date, required)
 
 Lending
 - id(required)

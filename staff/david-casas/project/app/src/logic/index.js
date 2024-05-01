@@ -6,10 +6,14 @@ import getLoggedInUserId from './getLoggedInUserId'
 import isUserLoggedIn from './isUserLoggedIn'
 import cleanUpLoggedInUserId from './cleanUpLoggedInUserId'
 
- import createAdd from './createAdd'
-import retrieveAdds from './retrieveAdds'
-// import removePost from './removePost'
-// import modifyPost from './modifyPost'
+import retrieveCategories from './retrieveCategories'
+
+import retrieveTools from './retrieveTools'
+import retrieveToolsByCategory from './retrieveToolsByCategory'
+
+// import createTool from './createTool'
+// import removeTools from './removeTool'
+// import modifyTool from './modifyTool'
 
 const logic = {
     registerUser,
@@ -20,10 +24,14 @@ const logic = {
     isUserLoggedIn,
     cleanUpLoggedInUserId,
 
-    createAdd,
-    retrieveAdds,
-    // removePost,
-    // modifyPost
+    retrieveCategories,
+
+    retrieveTools,
+    retrieveToolsByCategory
+    // createTool,
+    // retrieveTools,
+    // removeTool,
+    // modifyTool
 }
 
 export default logic

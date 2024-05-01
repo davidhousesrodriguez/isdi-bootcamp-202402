@@ -1,9 +1,9 @@
 import { validate, errors } from 'com'
-import { User, Add } from '../data/index.ts'
+import { User, Tool } from '../data/index.ts'
 
 const { SystemError, NotFoundError } = errors
 
-function createAdd(userId: string, image: string, description: string, location: string, Date): Promise<void> {
+function createTool(userId: string, image: string, description: string, location: string, Date): Promise<void> {
     validate.text(userId, 'userId', true)
     //validate url or image.png
     validate.url(image, 'image')
@@ -16,10 +16,10 @@ function createAdd(userId: string, image: string, description: string, location:
         if (!user)
             throw new NotFoundError('user not found')
 
-        return Add.create({ author: user._id, image, description, location, date: new Date })
+        return Tool.create({ author: user._id, image, description, location, date: new Date })
             .catch(error => { throw new SystemError(error.message)})
     })
-    .then(add => { })
+    .then(tool => { })
 }
 
-export default createAdd
+export default createTool
