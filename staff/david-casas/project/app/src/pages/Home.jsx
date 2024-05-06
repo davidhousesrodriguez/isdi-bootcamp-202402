@@ -1,141 +1,111 @@
-import { logger } from '../utils'
-
-import logic from '../logic'
-
 import { useState, useEffect } from 'react'
+import { useNavigate, Routes, Route } from 'react-router-dom'
 import { useContext } from '../context'
-import { Link } from 'react-router-dom'
-
-//import CategoryList from '../components/CategoryList'
-
+import CategoryList from '../components/CategoryList'
 import ToolList from '../components/ToolList'
-import retrieveToolsByCategory from '../logic/retrieveToolsByCategory'
-//import CreateTool from '../components/CreateTool'
-// import EditTool from '../components/EditTool'
-
-import { Routes, Route } from 'react-router-dom'
+import CreateTool from '../components/CreateTool'
+import EditTool from '../components/EditTool'
 import Profile from '../components/Profile'
-
+import retrieveToolsByCategory from '../logic/retrieveToolsByCategory'
+import logic from '../logic'
 
 function Home({ onUserLoggedOut }) {
     const [user, setUser] = useState(null)
     const [view, setView] = useState(null)
     const [stamp, setStamp] = useState(null)
-    const [tools, setTool] = useState(null)
-    //const [categories, setCategories] = useState(null)
+    const [tools, setTools] = useState([])
+    const [categories, setCategories] = useState([])
+    const [selectedCategoryId, setSelectedCategoryId] = useState('')
+    const [tool, setTool] = useState(null)
 
+    const navigate = useNavigate() 
     const { showFeedback } = useContext()
 
     useEffect(() => {
-        try {
-            logic.retrieveUser()
-                .then(setUser)
-                .catch(error => showFeedback(error, 'error'))
-        } catch (error) {
-            showFeedback(error)
-        }
+        logic.retrieveUser()
+            .then(setUser)
+            .catch((error) => showFeedback(error, 'error'))
     }, [])
-
-    // useEffect(() => {
-    //     try {
-    //         logic.retrieveCategories()
-    //         .then(setCategories)
-    //         .catch(error => showFeedback(error, 'error'))
-    //     }catch (error) {
-    //         showFeedback(error)
-    //     }
-    // }, [])
 
     useEffect(() => {
-        try {
-            logic.retrieveTools()
-            .then(setTool)
-            .catch(error => showFeedback(error, 'error'))
-        }catch (error) {
-            showFeedback(error)
-        }
+        logic.retrieveCategories()
+            .then(setCategories)
+            .catch((error) => showFeedback(error, 'error'))
     }, [])
-    //activar o desactivar hasta que no se activen los links
-    // useEffect(() => {
-        
-    //     event.preventDefault()
-    //     try {
-    //         logic.retrieveToolsByCategory()
-    //         .then(setTool)
-    //         .catch(error => showFeedback(error, 'error'))
-    //     }catch (error) {
-    //         showFeedback(error)
-    //     }
-        
-    // })
 
-    const clearView = () => setView(null)
-
-    const handleCreateToolCancelClick = () => clearView()
+   
+    const handleCreateToolClick = () => {
+        setView('create-tool')
+    }
 
     const handleToolCreated = () => {
-        clearView()
-        setStamp(Date.now())
+        setView(null)
+        setStamp(Date.now()) 
     }
 
-    const handleCreateToolClick = () => setView('create-tool')
-
-    const handleLogoutClick = () => {
-        try {
-            logic.logoutUser()
-        } catch (error) {
-            logic.cleanUpLoggedInUserId()
-        } finally {
-            onUserLoggedOut()
-        }
-    }
-
-    const handleEditToolCancelClick = () => clearView()
-
-    const handleEditToolClick = tool => {
+    const handleEditToolClick = (tool) => {
         setView('edit-tool')
-        setPost(tool)
+        setTool(tool) 
     }
 
     const handleToolEdited = () => {
-        clearView()
+        setView(null)
         setStamp(Date.now())
-        setTool(null)
     }
 
-    logger.debug('Home -> render')
+    const handleLogoutClick = () => {
+        sessionStorage.removeItem('token')
+        onUserLoggedOut()
+        navigate('/login') 
+    }
+    
+    const handleSelectCategory = (e) =>
+        setSelectedCategoryId(e.target.value)
 
-    return <>
-    <div className='flex flex-col items-center justify-center min-h-screen bg-sand'>
-        <header className="px-[5vw] fixed top-0 bg-darksand w-full">
-            {user && <h1>Hello, {user.name}!</h1>}
+    return (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-[#FFBB70]">
+            <header className="flex flex-row px-[5vw] fixed top-0 bg-[#ED9455] w-full">
+                {user && <h1>Hello, {user.name}!</h1>}
+                <div className="w-8 h-8">
+                    <button onClick={handleLogoutClick}>Logout</button>
+                </div>
+            </header>
+            <div className="my-20">
+                <img className="w-[100px]" src="../../public/LOGO.png" alt="Logo" />
+            </div>
+            
+            <div>
+                <label htmlFor="category"></label>
+                <select
+                    id="category"
+                    onChange={handleSelectCategory}
+                >
+                    <option value="">-- Select a category --</option>
+                    {categories.map((category) => (
+                        <option key={category.id} value={category.id}>
+                            {category.name}
+                            
+                        </option>
+                    ))}
+                </select>
+            </div>
+            
+            <ToolList tools={tools} onEditToolClick={handleEditToolClick} categoryId={selectedCategoryId} />
 
-            <nav>
-                <button className='border-2' onClick={handleLogoutClick}>🚪</button>
-            </nav>
+            <main className="px-[5vw]">
+                <Routes>
+                    
+                    <Route path="/profile/:username" element={<Profile />} />
+                </Routes>
+                {view === 'create-tool' && <CreateTool onCancelClick={() => setView(null)} onToolCreated={handleToolCreated} />}
+                {view === 'edit-tool' && <EditTool tool={tool} onCancelClick={() => setView(null)} onToolEdited={handleToolEdited} />}
+            </main>
 
-        </header>
-        <div className='my-20'>
-        <img className='w-[100px]' src="../../public/LOGO.png" alt="" /> 
+            <footer className="fixed bottom-0 w-full h-[50px] flex justificar-center items-center p-[10px] box-border bg-white">
+                <button onClick={handleCreateToolClick}>➕</button>
+            </footer>
         </div>
-        
-        <main className="px-[5vw]">
-            <Routes>
-                <Route path="/" element={<ToolList stamp={stamp} onEditToolClick={handleEditToolClick} />} />
-                {/* <Route path="/" element={<CategoryList stamp={stamp} />} /> */}
-                <Route path="/profile/:username" element={<Profile />} />
-            </Routes>
-
-            {view === 'create-tool' && <CreateTool onCancelClick={handleCreateToolCancelClick} onToolCreated={handleToolCreated} />}
-
-            {view === 'edit-tool' && <EditTool tool={tool} onCancelClick={handleEditToolCancelClick} onToolEdited={handleToolEdited} />}
-        </main>
-
-        <footer className="fixed bottom-0 w-full h-[50px] flex justify-center items-center p-[10px] box-border bg-white">
-            <button onClick={handleCreateToolClick}>➕</button>
-        </footer>
-        </div>
-    </>
+    )
 }
 
 export default Home

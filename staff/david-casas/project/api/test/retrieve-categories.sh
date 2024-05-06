@@ -1,0 +1,1 @@
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjM1MjIxY2ZhZTY5NTUzNTRlOWRkNjciLCJpYXQiOjE3MTUwMDk4MDksImV4cCI6MTcxNTAxMzQwOX0.6TtYCRjB5YYCpeBnweSb44OkPuWr6j8Ru6ck6UNH1eg" http://localhost:8080/categories -v

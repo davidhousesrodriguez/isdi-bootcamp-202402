@@ -189,7 +189,7 @@ mongoose.connect(MONGODB_URL)
             }
         })
 
-        api.post('/tools', jsonBodyParser, (req, res) => {
+        api.post('/tools/create', jsonBodyParser, (req, res) => {
             try {
                 const { authorization } = req.headers
 
@@ -197,9 +197,9 @@ mongoose.connect(MONGODB_URL)
 
                 const { sub: userId } = jwt.verify(token, JWT_SECRET)
 
-                const { image, location, description  } = req.body
-
-                logic.createTool(userId as string, image, location, description, Date)
+                const {image, Category, description, address, location, available, Date  } = req.body
+              
+                logic.createTool(userId as string, image, Category, description, address, location, available, Date)
                     .then(() => res.status(201).send())
                     .catch(error => {
                         if (error instanceof SystemError) {
@@ -268,7 +268,7 @@ mongoose.connect(MONGODB_URL)
             }
         })
 
-        api.get('/tools/:category', (req, res) => {
+        api.get('/tools/categories/:categoryId', (req, res) => {
             try {
                 const { authorization } = req.headers
 
@@ -276,9 +276,9 @@ mongoose.connect(MONGODB_URL)
 
                 const { sub: userId } = jwt.verify(token, JWT_SECRET)
                 
-                const { category } = req.params
-
-                logic.retrieveToolsByCategory(userId as string, category)
+                const { categoryId } = req.params
+           
+                logic.retrieveToolsByCategory(userId as string, categoryId)
                     .then(tools => res.json(tools))
                     .catch(error => {
                         if (error instanceof SystemError) {

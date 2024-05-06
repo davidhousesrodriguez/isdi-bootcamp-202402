@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import logic from '../logic'
 
 import { useContext } from '../context'
+import CategoryList from './CategoryList'
+import retrieveCategories from '../logic/retrieveCategories'
 
 function Tool({ item: tool, onEditClick, onDeleted }) {
     const { showFeedback, showConfirm } = useContext()
@@ -30,12 +32,9 @@ function Tool({ item: tool, onEditClick, onDeleted }) {
         <h3><Link to={`/CategoryList/${tool.owner.name}`}>{tool.owner.name}</Link></h3>
 
         <img src={tool.image} />
-
-        {/*deberia meter la categoria??*/}
+              
         <p>{tool.description}</p>
-        
-
-        <time>{new Date(tool.date).toLocaleDateString('en-CA')}</time>
+        <time>{new Date(tool.date).toLocaleDateString('es-ES')}</time>
 
         {logic.getLoggedInUserId() === tool.owner.id && <>
             <button onClick={() => handleDeleteClick(tool.id)}>🗑️</button>

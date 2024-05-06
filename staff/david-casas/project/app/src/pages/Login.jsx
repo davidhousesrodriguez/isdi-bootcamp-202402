@@ -39,7 +39,7 @@ function Login({ onUserLoggedIn, onRegisterClick }) {
     logger.debug('Login -> render')
 
     return (
-   <main className='flex flex-col items-center justify-center min-h-screen bg-sand'>
+   <main className='flex flex-col items-center justify-center min-h-screen bg-[#FFBB70]'>
                
         <div className='my-20'>
         <img className='w-[100px]' src="../../public/LOGO.png" alt="" />

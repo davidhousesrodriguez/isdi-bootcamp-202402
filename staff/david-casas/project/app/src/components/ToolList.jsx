@@ -7,8 +7,8 @@ import Tool from './Tool'
 
 import { useContext } from '../context'
 
-function ToolList({ stamp, onEditToolClick }) {
-    const[tools, setTools] = useState([])
+function ToolList({ stamp, categoryId, onEditToolClick }) {
+    const [tools, setTools] = useState([])
 
     const { showFeedback } = useContext()
 
@@ -16,9 +16,18 @@ function ToolList({ stamp, onEditToolClick }) {
         logger.debug('ToolList -> loadTools')
 
         try {
-            logic.retrieveTools()
-            .then(setTools)
-            .catch(error => showFeedback(error, 'error'))
+            if (categoryId) {
+
+                logic.retrieveToolsByCategory(categoryId)
+                    .then((tools) => setTools(tools))
+                    .catch((error) => showFeedback(error, 'error'))
+
+            } else {
+                logic.retrieveTools()
+                    .then(setTools)
+                    .catch(error => showFeedback(error, 'error'))
+
+            }
         } catch (error) {
             showFeedback(error)
         }
@@ -26,7 +35,7 @@ function ToolList({ stamp, onEditToolClick }) {
 
     useEffect(() => {
         loadTools()
-    }, [stamp])
+    }, [stamp, categoryId])
 
     const handleToolDeleted = () => loadTools()
 
@@ -36,10 +45,10 @@ function ToolList({ stamp, onEditToolClick }) {
 
     return (
         <div className=''>
-    <section className='grid grid-cols-2 gap-4 '>
-        {tools.map(tool => <Tool key={tool.id} item={tool} onEditClick={handleEditClick} onDeleted={handleToolDeleted} />)}
-    </section>
-    </div>
+            <section className='grid grid-cols-2 gap-4 '>
+                {tools.map(tool => <Tool key={tool.id} item={tool} onEditClick={handleEditClick} onDeleted={handleToolDeleted} />)}
+            </section>
+        </div>
     )
 }
 export default ToolList

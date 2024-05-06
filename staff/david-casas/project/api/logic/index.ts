@@ -7,8 +7,7 @@ import retrieveCategories from  './retrieveCategories.ts'
 import retrieveTools from './retrieveTools.ts'
 import retrieveToolsByCategory from './retrieveToolsByCategory.ts'
 
-// import createTool from './createTool.ts'
-// import retrieveTools from './retrieveTools.ts'
+import createTool from './createTool.ts'
 // import removeTool from '/removeTool.ts'
 // import modifyTool from '/modifyTool.ts'
 
@@ -20,11 +19,11 @@ const logic = {
     retrieveCategories,
 
     retrieveTools,
-    retrieveToolsByCategory
+    retrieveToolsByCategory,
 
 
-    // createTool,
-    // retrieveTools
+    createTool
+   
     // removeTool, 
     // modifyTool
 

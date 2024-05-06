@@ -5,7 +5,7 @@ import CancelButton from './library/CancelButton'
 import logic from '../logic'
 import SubmitButton from './library/SubmitButton'
 
-import './EditTool.sass'
+
 
 import { useContext } from '../context'
 

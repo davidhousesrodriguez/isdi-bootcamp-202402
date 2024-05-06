@@ -11,7 +11,7 @@ import retrieveCategories from './retrieveCategories'
 import retrieveTools from './retrieveTools'
 import retrieveToolsByCategory from './retrieveToolsByCategory'
 
-// import createTool from './createTool'
+import createTool from './createTool'
 // import removeTools from './removeTool'
 // import modifyTool from './modifyTool'
 
@@ -27,8 +27,8 @@ const logic = {
     retrieveCategories,
 
     retrieveTools,
-    retrieveToolsByCategory
-    // createTool,
+    retrieveToolsByCategory,
+    createTool
     // retrieveTools,
     // removeTool,
     // modifyTool

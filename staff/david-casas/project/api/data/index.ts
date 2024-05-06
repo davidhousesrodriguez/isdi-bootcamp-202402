@@ -58,25 +58,6 @@ const category = new Schema ({
     }
 })
 
-// type PointType = {
-
-//     type: 'Point'
-//     coordinates: [number, number]
-
-// }
-
-// const point = new Schema ({
-//     type: {
-//         type: String,
-//         enum: ['Point'],
-//         required: true
-//     },
-//     coordinates: {
-//         type: [Number],
-//         required: true
-//     }
-// })
-
 
 type ToolType = {
     owner: string

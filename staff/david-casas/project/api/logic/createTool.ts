@@ -1,25 +1,42 @@
+import mongoose from 'mongoose'
 import { validate, errors } from 'com'
-import { User, Tool } from '../data/index.ts'
+import { User, Tool, Category } from '../data/index.ts'
+
+import { ObjectId } from 'mongoose'
+
+const { Types: { ObjectId}} = mongoose
 
 const { SystemError, NotFoundError } = errors
 
-function createTool(userId: string, image: string, description: string, location: string, Date): Promise<void> {
+async function createTool(userId: string, image: string, category: string, description: string, address: String, location: number, available: Boolean, date): Promise<void> {
+    
     validate.text(userId, 'userId', true)
-    //validate url or image.png
     validate.url(image, 'image')
     validate.text(description, 'description')
-    //validate location should use a previous location in map at the add creation e
+    validate.text(address, 'address')
+    validate.date(date, 'date')
+   
 
     return User.findById(userId)
     .catch(error => { throw new SystemError(error.message) })
     .then(user => {
         if (!user)
             throw new NotFoundError('user not found')
+        const tool = {
+            owner: user._id,
+            image,
+            category,
+            description,
+            location,
+            available, 
+            date: Date
+        }
+        return Tool.create(tool)
+            .catch(error => { throw new Error(error.message) })
 
-        return Tool.create({ author: user._id, image, description, location, date: new Date })
-            .catch(error => { throw new SystemError(error.message)})
+            .then(tool => { })
     })
-    .then(tool => { })
+    
 }
 
 export default createTool

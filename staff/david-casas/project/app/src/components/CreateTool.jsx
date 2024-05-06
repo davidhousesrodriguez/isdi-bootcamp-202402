@@ -16,10 +16,14 @@ function CreateTool(props) {
         const form = event.target
 
         const image = form.image.value
-        const text = form.text.value
-
+        const category = form.category.value
+        const description = form.description.value
+        const location = form.location.value
+        const available = form.available.value
+        const date = form.date.value
+        
         try {
-            logic.CreateTool(image, text)
+            logic.CreateTool(image, category, description, location, available, date)
                 .then(() => {
                     form.reset()
 

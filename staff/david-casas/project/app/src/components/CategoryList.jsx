@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import logic from '../logic'
-import { Link } from 'react-router-dom'
 
 function CategoryList ({}) {
     const [categories, setCategories] = useState(null)
@@ -14,13 +13,15 @@ function CategoryList ({}) {
             console.log(error)
         }
     }, [])
-
+    
     return <ul>{categories && categories.map(category => (
         
         <li key={category._id}>
         {category.name}
         </li>
         ))}</ul>
+   
 }
 
 export default CategoryList
+
