@@ -1,14 +1,15 @@
 import { validate, errors } from 'com'
 
-function createTool(image, text) {
+function createTool(image, category, description, address, location, available, date) {
     validate.url(image, 'image')
-    if(text)
-        validate.text(text, 'text')
+    validate.text(category, 'category')
+    validate.text(description, 'description')
+    validate.text(address, 'address')
     validate.token(sessionStorage.token)
 
-    const add = { image, text }
+    const tool = { image, category, description, address, location, available, date }
 
-    const json = JSON.stringify(add)
+    const json = JSON.stringify(tool)
 
     return fetch(`${import.meta.env.VITE_API_URL}/tools`, {
         method: 'POST',

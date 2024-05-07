@@ -18,7 +18,7 @@ mongoose.connect('mongodb://localhost:27017/project')
             Category.create({ name: 'Electric Brush' }),
             Category.create({ name: 'Blower' }),
             Category.create({ name: 'Welder' }),
-            Category.create({ name: 'Other' })
+            Category.create({ name: 'All' })
         ])
 
     )

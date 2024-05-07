@@ -6,7 +6,8 @@
         "composite": true,
         "emitDeclarationOnly": true,
         "allowImportingTsExtensions": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "sourceMap": true
     },
     "exclude": [
         "node_modules"

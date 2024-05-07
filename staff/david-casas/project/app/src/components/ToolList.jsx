@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import Tool from './Tool'
 
 import { useContext } from '../context'
+import { NotFoundError } from 'com/errors'
 
 function ToolList({ stamp, categoryId, onEditToolClick }) {
     const [tools, setTools] = useState([])
