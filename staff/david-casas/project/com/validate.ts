@@ -42,6 +42,23 @@ const validate = {
         const { exp } = util.extractJwtPayload(token)
 
         if (exp * 1000 < Date.now()) throw new UnauthorizedError('session expired')
+    },
+
+    coords(coords, explain = 'coords') {
+        if (!Array.isArray(coords) || coords.length !== 2 || !coords.every(coord => typeof coord === 'number')) {
+            throw new ContentError(`${explain} must be an array of two numbers`)
+        }
+    },
+
+    number(value, explain = 'number') {
+        if (typeof value !== 'number') throw new TypeError(explain + ' ' + value + ' is not a number')
+        if (typeof value !== 'number' && !Array.isArray(value)) throw new TypeError(explain + ' ' + value + ' is not a number or array of numbers')
+    },
+
+    rating(value, explain = 'rating') {
+        if (typeof value !== 'number' || !Number.isInteger(value) || value < 1 || value > 5) {
+            throw new TypeError(explain + ' ' + value + ' is not a valid rating (it should be a number between 1 and 5)')
+        }
     }
 }
 
