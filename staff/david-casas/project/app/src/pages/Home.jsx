@@ -18,7 +18,7 @@ function Home({ onUserLoggedOut }) {
     const [selectedCategoryId, setSelectedCategoryId] = useState('')
     const [tool, setTool] = useState(null)
 
-    const navigate = useNavigate() 
+    const navigate = useNavigate()
     const { showFeedback } = useContext()
 
     useEffect(() => {
@@ -33,19 +33,19 @@ function Home({ onUserLoggedOut }) {
             .catch((error) => showFeedback(error, 'error'))
     }, [])
 
-   
+
     const handleCreateToolClick = () => {
         setView('create-tool')
     }
 
     const handleToolCreated = () => {
         setView(null)
-        setStamp(Date.now()) 
+        setStamp(Date.now())
     }
 
     const handleEditToolClick = (tool) => {
         setView('edit-tool')
-        setTool(tool) 
+        setTool(tool)
     }
 
     const handleToolEdited = () => {
@@ -56,24 +56,24 @@ function Home({ onUserLoggedOut }) {
     const handleLogoutClick = () => {
         sessionStorage.removeItem('token')
         onUserLoggedOut()
-        navigate('/login') 
+        navigate('/login')
     }
-    
+
     const handleSelectCategory = (e) =>
         setSelectedCategoryId(e.target.value)
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-[#FFBB70]">
             <header className="flex flex-row px-[5vw] fixed top-0 bg-[#ED9455] w-full">
-                {user && <h1>Hello, {user.name}!</h1>}
+                {user && <h1>Hello, {user.name} {user.surname}!</h1>}
                 <div className="w-8 h-8">
-                    <button onClick={handleLogoutClick}>Logout</button>
+                    <button onClick={handleLogoutClick}><img src="..\public\LogoutSharp.png" alt="" /></button>
                 </div>
             </header>
             <div className="my-20">
                 <img className="w-[100px]" src="../../public/LOGO.png" alt="Logo" />
             </div>
-            
+
             <div>
                 <label htmlFor="category"></label>
                 <select
@@ -84,17 +84,17 @@ function Home({ onUserLoggedOut }) {
                     {categories.map((category) => (
                         <option key={category.id} value={category.id}>
                             {category.name}
-                            
+
                         </option>
                     ))}
                 </select>
             </div>
-            
+
             <ToolList tools={tools} onEditToolClick={handleEditToolClick} categoryId={selectedCategoryId} />
 
             <main className="px-[5vw]">
                 <Routes>
-                    
+
                     <Route path="/profile/:username" element={<Profile />} />
                 </Routes>
                 {view === 'create-tool' && <CreateTool onCancelClick={() => setView(null)} onToolCreated={handleToolCreated} />}
