@@ -58,6 +58,23 @@ const category = new Schema ({
     }
 })
 
+type PointType = {
+    type: string
+    coordinates: [number, number]
+}
+
+const point = new Schema<PointType>({
+    type: {
+      type: String,
+      enum: ['Point'],
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
+  })
+
 
 type ToolType = {
     owner: string
@@ -65,7 +82,7 @@ type ToolType = {
     category: CategoryType
     description: string
     address: string
-    location: number
+    location: PointType
     available: boolean
     date: Date
 }
@@ -94,7 +111,7 @@ const tool = new Schema({
         required: true
     },
     location: {
-        type: Number,
+        type: point,
         required: true
     },
     available: {
@@ -180,6 +197,7 @@ const review = new Schema ({
 })
 const User = model<UserType>('User', user)
 const Category = model<CategoryType>('Category', category)
+const Point = model<PointType>('Point', point)
 const Tool = model<ToolType>('Tool', tool)
 const Lending = model<LendingType>('Lending', lending)
 const Review = model<ReviewType>('Review', review)
@@ -189,10 +207,13 @@ export {
     User,
     CategoryType,
     Category,
+    PointType, 
+    Point,
     ToolType,
     Tool,
     LendingType,
     Lending,
     ReviewType,
-    Review
+    Review      
+    
 }

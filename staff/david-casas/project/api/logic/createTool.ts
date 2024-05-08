@@ -1,50 +1,55 @@
-//@ts-nocheck
-import * as mongoose from 'mongoose'
-import { connect } from 'mongoose'
-import mongoose from require('mongoose')
-
-import { ObjectId } from 'mongoose'
-
+//@ts-ignore
 import { validate, errors } from 'com'
 
-import { User, Tool, Category } from '../data/index.ts'
+import { User, Tool, UserType, PointType } from '../data/index.ts'
+
+import mongoose from 'mongoose'
+
+const { Types: { ObjectId } } = mongoose
 
 const { NotFoundError, SystemError } = errors
 
 
-function createTool(userId: string):  Promise<[{ image: string, category: string, description: string, address: String, location: number, available: Boolean, date: Date }] | { image: string, category: string, description: string, address: String, location: number, available: Boolean, date: Date }[] | any> {
+function createTool(userId: string, image: string, category: string, description: string, address: string, location: [number, number], available: string, date: string): Promise<void> {
     validate.text(userId, 'userId', true)
     validate.url(image, 'image')
     validate.text(category, 'category')
     validate.text(description, 'description')
     validate.text(address, 'address')
-    validate.token(userId)
+    //validate.coords(location, 'coords')
+    //TODO validate available(boolean)
+    //TODO validate date
+
 
     return User.findById(userId)
+        .catch(error => { throw new SystemError(error.message) })
         .then((user: any) => {
             if (!user) {
                 throw new NotFoundError('user not found');
             }
-            return Category.findById(category);
-        })
-        .then((category) => {
-            if (!category) {
-                throw new NotFoundError('category not found');
-            }
-            return Tool.create({
-                owner: User._id,
-                image: image,
-                category: Category,
-                description: description,
-                address: address,
-                location: location,
-                available: available,
-                date: new Date(date)
-            })
-        })
-        .catch((error: { message: any }) => {
-            throw new SystemError(error.message)
 
+            const formattedPoint: PointType = {
+                type: 'Point',
+                coordinates: location
+            }
+
+            const newTool = {
+                owner: user._id,
+                image,
+                category,
+                description,
+                address,
+                location: formattedPoint,
+                available: !!available,
+                date: new Date(date)
+            }
+
+            return Tool.create(newTool)
+                .catch((error: { message: any }) => {
+                    debugger
+                    throw new SystemError(error.message)
+                })
+                .then(tool => { })
         })
 
 }

@@ -7,7 +7,6 @@ import tracer from 'tracer'
 import colors from 'colors'
 import jwt from 'jsonwebtoken'
 import cors from 'cors'
-import { Category } from './data/index.ts'
 
 
 dotenv.config()
@@ -189,19 +188,20 @@ mongoose.connect(MONGODB_URL)
             }
         })
 
-        api.post('/tools/create', jsonBodyParser, (req, res) => {
+        api.post('/tools', jsonBodyParser , (req, res) => {
             try {
                 const { authorization } = req.headers
 
                 const token = authorization.slice(7)
 
                 const { sub: userId } = jwt.verify(token, JWT_SECRET)
-
-                const {image, Category, description, address, location, available, Date  } = req.body
-              
-                logic.createTool(userId as string, image, Category, description, address, location, available, Date)
+                
+                const {image, category, description, address, location, available, date  } = req.body
+                debugger
+                logic.createTool(userId as string, image, category, description, address, location, available, date)
                     .then(() => res.status(201).send())
                     .catch(error => {
+                        debugger
                         if (error instanceof SystemError) {
                             logger.error(error.message)
 
@@ -213,6 +213,7 @@ mongoose.connect(MONGODB_URL)
                         }
                     })
             } catch (error) {
+                debugger
                 if (error instanceof TypeError || error instanceof ContentError) {
                     logger.warn(error.message)
 
