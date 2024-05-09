@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Routes, Route } from 'react-router-dom'
 import { useContext } from '../context'
-import CategoryList from '../components/CategoryList'
 import ToolList from '../components/ToolList'
 import CreateTool from '../components/CreateTool'
 import EditTool from '../components/EditTool'
 import Profile from '../components/Profile'
-import retrieveToolsByCategory from '../logic/retrieveToolsByCategory'
+//import retrieveToolsByCategory from '../logic/retrieveToolsByCategory'
 import logic from '../logic'
 
 function Home({ onUserLoggedOut }) {
@@ -85,7 +84,7 @@ function Home({ onUserLoggedOut }) {
                         <option key={category.id} value={category.id}>
                             {category.name}
 
-                        </option>
+                    </option>
                     ))}
                 </select>
             </div>
