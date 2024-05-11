@@ -12,7 +12,7 @@ function CreateTool({ ...props }) {
     const { showFeedback } = useContext()
     const [categories, SetCategories] = useState([])
     const [selectedCategoryId, setSelectedCategoryId] = useState([])
-    const [locationInput, setLocationInput] = useState('')
+    //const [locationInput, setLocationInput] = useState('')
 
     useEffect(() => {
         logic.retrieveCategories()
@@ -29,11 +29,14 @@ function CreateTool({ ...props }) {
         const category = form.category.value
         const address = form.address.value
         const description = form.description.value
-        //const location = form.location.value
+        const locationStr = form.location.value.split(",")
+        const location = locationStr.map(str => {
+            return Number(str)
+        })
         const available = form.available.value
         const date = form.date.value
 
-        const location = locationInput.split(',').map(coord => parseFloat(coord.trim()))
+        //const location = locationInput.split(',').map(coord => parseFloat(coord.trim()))
 
         try {
             logic.createTool(image, category, description, address, location, available, date)
@@ -53,9 +56,9 @@ function CreateTool({ ...props }) {
     const handleCategoryChange = (e) => {
         setSelectedCategoryId(e.target.value)
     }
-    const handleLocationChange = (e) => {
-        setLocationInput(e.target.value)
-    }
+    // const handleLocationChange = (e) => {
+    //     setLocationInput(e.target.value)
+    // }
 
     logger.debug('CreateTool -> render')
 
@@ -65,7 +68,6 @@ function CreateTool({ ...props }) {
             <input className='rounded-lg p-1 border-2' id="image" type="text" />
 
             <label htmlFor="category">Category</label>
-            
             <select  className="rounded-lg p-1 border-2" id="category" onChange={handleCategoryChange}>
                 {categories.map((category) => (<option key={category.id} value={category.id}>{category.name}
                 </option>
@@ -76,10 +78,12 @@ function CreateTool({ ...props }) {
             <input className='rounded-lg p-1 border-2' id="description" type="text" />
 
             <label >Address</label>
-            <input className='rounded-lg p-1 border-2' id="address" type="" onSubmit={handleSubmit} onChange={handleLocationChange} />
+            <input className='rounded-lg p-1 border-2' id="address" type="text" />
             
             <label >Location</label>
-            <input className='rounded-lg p-1 border-2' id="location" type="" />
+            <input className='rounded-lg p-1 border-2' id="location" type="text" 
+            />
+            {/* onSubmit={handleSubmit} onChange={handleLocationChange}  */}
 
             <label>Available</label>
             <input className='rounded-lg p-1 border-2' id="available" type="boolean" />
@@ -90,7 +94,7 @@ function CreateTool({ ...props }) {
             <SubmitButton>Create</SubmitButton>
         </form>
 
-        <CancelButton onClick={handleCancelClick} />
+        <CancelButton onClick={handleCancelClick}></CancelButton>
     </section>
 }
 

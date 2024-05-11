@@ -7,7 +7,7 @@ function Confirm({ message, onAcceptClick, onCancelClick }) {
             <h3>{message}</h3>
             <div className='flex gap-2'>
                 <CancelButton onClick={onCancelClick}>Cancel</CancelButton>
-                <RoundButton onClick={onAcceptClick}><Accept></Accept></RoundButton>
+                <RoundButton onClick={onAcceptClick}>Accept</RoundButton>
             </div>
         </div>
     </div>

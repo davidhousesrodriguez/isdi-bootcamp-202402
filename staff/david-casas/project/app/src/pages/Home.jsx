@@ -1,12 +1,16 @@
+import { logger } from '../utils'
+import logic from '../logic'
+
 import { useState, useEffect } from 'react'
 import { useNavigate, Routes, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useContext } from '../context'
 import ToolList from '../components/ToolList'
 import CreateTool from '../components/CreateTool'
 import EditTool from '../components/EditTool'
 import Profile from '../components/Profile'
 //import retrieveToolsByCategory from '../logic/retrieveToolsByCategory'
-import logic from '../logic'
+
 
 function Home({ onUserLoggedOut }) {
     const [user, setUser] = useState(null)
@@ -31,7 +35,6 @@ function Home({ onUserLoggedOut }) {
             .then(setCategories)
             .catch((error) => showFeedback(error, 'error'))
     }, [])
-
 
     const handleCreateToolClick = () => {
         setView('create-tool')

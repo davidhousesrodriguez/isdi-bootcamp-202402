@@ -10,19 +10,19 @@ import SubmitButton from './library/SubmitButton'
 import { useContext } from '../context'
 
 function EditTool(props) {
-    const { showFeedback } = userContext()
+    const { showFeedback } = useContext()
 
     const handleSubmit = event => {
         event.preventDefault()
 
         const tool = event.target
 
-        const text = form.text.value
+        const description = form.description.value
 
-        logger.debug('EditTool -> handleSubmit', text)
+        logger.debug('EditTool -> handleSubmit', description)
 
         try {
-            logic.modifyTool(props.tool.id, text)
+            logic.modifyTool(props.tool.id, description)
                 .then(() => {
                     form.reset()
 
@@ -40,8 +40,8 @@ function EditTool(props) {
 
     return <section className='edit-tool'>
         <form onSubmit={handleSubmit}>
-            <label>Text</label>
-            <input id="text" type="text" defaultValue={props.tool.text} />
+            <label>Description</label>
+            <input id="text" type="text" defaultValue={props.tool.description} />
 
             <SubmitButton>Save</SubmitButton>
         </form>

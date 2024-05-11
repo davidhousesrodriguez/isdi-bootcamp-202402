@@ -12,8 +12,8 @@ import retrieveTools from './retrieveTools'
 import retrieveToolsByCategory from './retrieveToolsByCategory'
 
 import createTool from './createTool'
-// import removeTools from './removeTool'
-// import modifyTool from './modifyTool'
+import removeTool from './removeTool'
+import modifyTool from './modifyTool'
 
 const logic = {
     registerUser,
@@ -28,10 +28,9 @@ const logic = {
 
     retrieveTools,
     retrieveToolsByCategory,
-    createTool
-    // retrieveTools,
-    // removeTool,
-    // modifyTool
+    createTool,
+    removeTool,
+    modifyTool
 }
 
 export default logic
